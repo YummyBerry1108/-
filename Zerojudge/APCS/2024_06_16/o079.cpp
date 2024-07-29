@@ -24,8 +24,10 @@ signed main(){
 		preSum += nums[i];
 		if(nums[i] % 2 == 1) preCnt--;
 		else preCnt++;
+		
+		if(preCnt == 0 && preSum <= k) ans = max(ans, preSum);
 	}
-	if(preCnt == 0 && preSum <= k) ans = preSum;
+
 	
 	int sufSum = 0, sufCnt = 0;
 	for(int i = n-1; i >= 0; i--){
@@ -41,14 +43,9 @@ signed main(){
 		else preCnt--;
 		
 		auto iter = ump[-preCnt].lower_bound(-(k-preSum));
-		if(iter == ump[-preCnt].end()){
-//			cout << "not found ";
-		} 
-		else{
+		if(iter != ump[-preCnt].end()){
 			ans = max(ans, -(*iter) + preSum);
 		}
-//		cout << *iter << '\n';
-		
 	}
 	cout << ans;
 	return 0;
